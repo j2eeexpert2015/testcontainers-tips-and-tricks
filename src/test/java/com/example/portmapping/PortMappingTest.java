@@ -10,17 +10,16 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+
+import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.Ports;
-import com.github.dockerjava.api.model.ExposedPort;
 
 @Testcontainers
 public class PortMappingTest {
 	private static final Logger logger = LoggerFactory.getLogger(PortMappingTest.class);
 
-	// ---------------------------
 	// Scenario 1: Dynamic Port Mapping (Recommended)
-	// ---------------------------
 	@Container
 	PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:13");
 
@@ -30,9 +29,7 @@ public class PortMappingTest {
 	@Container
 	MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0");
 
-	// ---------------------------
 	// Scenario 2: Fixed Port Mapping (Use with caution)
-	// ---------------------------
 	@Container
 	PostgreSQLContainer<?> postgresFixed = new PostgreSQLContainer<>("postgres:13")
 			.withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(cmd.getHostConfig()
@@ -56,23 +53,5 @@ public class PortMappingTest {
 				container.getFirstMappedPort(), container.getHost());
 	}
 
-	/*
-	private void verifyConnections() {
-		try {
-			// Test PostgreSQL connection
-			postgres.withDatabaseName("test").start();
-			logger.info("\nPostgreSQL JDBC URL: {}", postgres.getJdbcUrl());
-
-			// Test Kafka (requires advertised listeners)
-			kafka.withEnv("KAFKA_ADVERTISED_LISTENERS", "PLAINTEXT://localhost:" + kafka.getMappedPort(9092));
-			logger.info("Kafka Bootstrap Servers: {}", kafka.getBootstrapServers());
-
-			// Test MySQL
-			logger.info("MySQL JDBC URL: {}", mysql.getJdbcUrl());
-
-		} catch (Exception e) {
-			logger.error("Connection test failed", e);
-		}
-	}
-	*/
+	
 }
