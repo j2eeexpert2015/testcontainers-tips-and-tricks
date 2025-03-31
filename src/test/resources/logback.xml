@@ -24,10 +24,10 @@
          ========================== -->
 
     <!-- Testcontainers internal framework logs -->
-    <!-- <logger name="org.testcontainers" level="INFO"/> -->
+    <logger name="org.testcontainers" level="INFO"/>
 
     <!-- Docker Java client logs used by Testcontainers -->
-    <!-- <logger name="com.github.dockerjava" level="WARN"/> -->
+    <logger name="com.github.dockerjava" level="WARN"/>
 
     <!-- ==========================
          Application Logging
