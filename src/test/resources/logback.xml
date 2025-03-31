@@ -1,0 +1,43 @@
+<configuration>
+
+    <!-- ==========================
+         Appender Definitions
+         ========================== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Log pattern: Timestamp | Level | Logger Name | Message -->
+            <pattern>%d{HH:mm:ss.SSS} | %-5level | %logger{36} | %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ==========================
+         Container stdout/stderr logs (Optional)
+         Will be used if you attach:
+         .withLogConsumer(new Slf4jLogConsumer(logger).withPrefix("CONTAINER"))
+         ========================== -->
+    <logger name="CONTAINER" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- ==========================
+         Framework Logging Levels
+         ========================== -->
+
+    <!-- Testcontainers internal framework logs -->
+    <!-- <logger name="org.testcontainers" level="INFO"/> -->
+
+    <!-- Docker Java client logs used by Testcontainers -->
+    <!-- <logger name="com.github.dockerjava" level="WARN"/> -->
+
+    <!-- ==========================
+         Application Logging
+         ========================== -->
+    <logger name="com.example" level="DEBUG"/>
+
+    <!-- ==========================
+         Root Logger (Catch-all)
+         ========================== -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
