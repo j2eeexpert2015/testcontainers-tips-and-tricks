@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -16,7 +15,6 @@ public class NoLoggingDemoTest {
     @Container
     private static final PostgreSQLContainer<?> postgres = 
         new PostgreSQLContainer<>("postgres:15");
-        //.withLogConsumer(new Slf4jLogConsumer(logger)); // Attach logs to SLF4J
 
     @Test
     void test() {

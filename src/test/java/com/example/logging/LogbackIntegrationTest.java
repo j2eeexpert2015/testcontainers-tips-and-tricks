@@ -12,28 +12,8 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-/**
- * Since v1.17.0, Testcontainers has shifted to SLF4J as the default logging facade.
- * All Testcontainers internal logs (like startup, container creation, etc.) are logged via SLF4J.
- * If your project has an SLF4J binding (like Logback), logs will automatically appear.
- * 
- * That's why, logs from org.testcontainers.*, tc.postgres:15, tc.testcontainers/ryuk:0.5.1 would 
- * be appearing even without withLogConsumer().
- * 
- * You are seeing two types of loggers in your output:
- * 
- * 1. org.testcontainers.*
- * These are Testcontainers' own internal framework logs.They originate from the Java classes inside Testcontainers library itself.
- * These logs will only appear if you have this in logback.xml:
- * <logger name="org.testcontainers" level="INFO"/>
- * They help you understand what Testcontainers framework is doing internally (image pulling, Docker client strategy, etc.).
- * 
- * tc.postgres:15
- * This is not a Java package logger. It is the logger name assigned to the actual running Docker container.
- * Format: tc.<image-name>:<tag>
- * This logger is created by Testcontainers' Slf4jLogConsumer internally if SLF4J is present, even if you don't manually attach a withLogConsumer().
- * It is used to log the container's lifecycle events — like when the container starts, stops, and its health status.
- */
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @Testcontainers
 public class LogbackIntegrationTest {
     private static final Logger logger = LoggerFactory.getLogger(LogbackIntegrationTest.class);
@@ -45,8 +25,8 @@ public class LogbackIntegrationTest {
     
     @Container
     private static final PostgreSQLContainer<?> postgres = 
-        new PostgreSQLContainer<>("postgres:15");
-        //.withLogConsumer(new Slf4jLogConsumer(logger)); // Attach logs to SLF4J
+        new PostgreSQLContainer<>("postgres:15")
+        .withLogConsumer(new Slf4jLogConsumer(logger));
 
     @Test
     void test() {
@@ -65,5 +45,13 @@ public class LogbackIntegrationTest {
             conn.createStatement().execute("SELECT 1");
             logger.info("Query succeeded!");
         }
+
+        // Use getLogs() to inspect output after container has started
+        String combinedLogs = postgres.getLogs();
+        logger.info("Captured logs using getLogs():\n{}", combinedLogs);
+
+        // Optional: assertion on log content
+        assertTrue(combinedLogs.contains("database system is ready to accept connections"),
+                "PostgreSQL startup log not found in container logs");
     }
 }
