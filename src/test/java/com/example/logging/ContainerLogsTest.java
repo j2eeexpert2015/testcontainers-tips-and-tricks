@@ -4,15 +4,20 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.OutputFrame;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.output.ToStringConsumer;
 import org.testcontainers.containers.output.WaitingConsumer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,7 +51,7 @@ public class ContainerLogsTest {
 
             String stdout = container.getLogs(OutputFrame.OutputType.STDOUT);
             String stderr = container.getLogs(OutputFrame.OutputType.STDERR);
-
+            //1>&2 redirects file descriptor 1 (STDOUT) to file descriptor 2 (STDERR).
             System.out.println("=== STDOUT ===\n" + stdout);
             System.out.println("=== STDERR ===\n" + stderr);
 
@@ -95,5 +100,24 @@ public class ContainerLogsTest {
         consumer.waitUntil(frame -> frame.getUtf8String().contains("ready"), 30, TimeUnit.SECONDS);
         System.out.println("PostgreSQL is ready!");
 
+    }
+
+
+
+    @Test
+    void composeKafkaLogConsumers() throws TimeoutException {
+        KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.2.1"))//;
+        .withLogConsumer(new Slf4jLogConsumer(logger).withSeparateOutputStreams());
+
+        ToStringConsumer stringConsumer = new ToStringConsumer();
+        WaitingConsumer waitingConsumer = new WaitingConsumer();
+
+        Consumer<OutputFrame> composed = stringConsumer.andThen(waitingConsumer);
+        kafka.start();
+        kafka.followOutput(composed);
+
+        waitingConsumer.waitUntil(frame -> frame.getUtf8String().contains("started (kafka.server.KafkaServer)"), 60, TimeUnit.SECONDS);
+        System.out.println("Kafka Container Logs:\n" + stringConsumer.toUtf8String());
+        kafka.stop();
     }
 }
