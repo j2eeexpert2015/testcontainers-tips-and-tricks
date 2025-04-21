@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ public class MySQLHealthCheckWaitStrategyTest {
             .withUsername("user")
             .withPassword("password")
             .withExposedPorts(3306)
-            .waitingFor(Wait.forHealthcheck()); // Healthy check
+            .waitingFor(Wait.forHealthcheck()); // Health check
             
 
     /**
@@ -41,7 +40,7 @@ public class MySQLHealthCheckWaitStrategyTest {
     @Test
     void testMySQLHealthCheckStrategy() throws SQLException {
         String jdbcUrl = mysql.getJdbcUrl();
-        logger.info("✅ MySQL is running at {}", jdbcUrl);
+        logger.info("MySQL is running at {}", jdbcUrl);
 
         try (Connection conn = DriverManager.getConnection(
                 jdbcUrl,
@@ -49,7 +48,7 @@ public class MySQLHealthCheckWaitStrategyTest {
                 mysql.getPassword())) {
 
             assertTrue(conn.isValid(2), "MySQL connection should be valid");
-            logger.info("✅ Successfully connected to MySQL after health check readiness.");
+            logger.info("Successfully connected to MySQL after health check readiness.");
         }
     }
 }

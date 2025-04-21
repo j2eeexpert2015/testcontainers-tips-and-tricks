@@ -18,27 +18,22 @@ public class PostgresWaitStrategy {
 
 	private static final Logger logger = LoggerFactory.getLogger(PostgresWaitStrategy.class);
 
-	/*
-	@Container
-	private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15")
-			.withDatabaseName("testdb").withUsername("user").withPassword("password")
-			.waitingFor(Wait.forListeningPort())
-			.waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*", 1))
-			.withStartupTimeout(Duration.ofSeconds(60));
-	*/
+
+
+
 
 	@Container
 	private static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15")
     .withDatabaseName("testdb")
     .withUsername("user")
     .withPassword("password")
-    //.withUrlParam("sslmode", "disable") // ← Add this
+    .withUrlParam("sslmode", "disable")
     // Liveness check (port)
     .waitingFor(Wait.forListeningPort()
-        .withStartupTimeout(Duration.ofSeconds(30))) 
+        .withStartupTimeout(Duration.ofSeconds(60)))
     // Readiness check (logs)
     .waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*", 1)
-        .withStartupTimeout(Duration.ofSeconds(45)));
+        .withStartupTimeout(Duration.ofSeconds(60)));
 
 	
 	//@Disabled
