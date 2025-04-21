@@ -24,7 +24,7 @@ public class RedisHealthCheckWaitStrategyTest {
     @Container
     private static final GenericContainer<?> redis = new GenericContainer<>("redis:7-alpine")
             .withExposedPorts(6379)
-            .waitingFor(Wait.forHealthcheck()) ;// Readiness check: Relies on Dockerfile's HEALTHCHECK
+            .waitingFor(Wait.forHealthcheck()) ;// Readiness check
 
     /**
      * Test verifies that Redis container is healthy and ready before proceeding.

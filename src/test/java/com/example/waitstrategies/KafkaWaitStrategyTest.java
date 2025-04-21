@@ -36,11 +36,21 @@ public class KafkaWaitStrategyTest {
         // Liveness check
         .waitingFor(Wait.forListeningPort())
         // Readiness check
-    	//.waitingFor(Wait.forLogMessage(".*Kafka Server.*started.*", 1))
         .waitingFor(Wait.forLogMessage(".*KafkaServer id=.* started.*", 1))
-    		.withLogConsumer(new Slf4jLogConsumer(logger));  
-    
-    
+    		.withLogConsumer(new Slf4jLogConsumer(logger));
+
+    /*
+    @Container
+    private static final KafkaContainer anotherKafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.0.0"))
+            .waitingFor(CombinedWaitStrategy.of(
+                    Wait.forListeningPort(),   // Liveness check: Wait for the port to be available
+                    Wait.forLogMessage(".*KafkaServer id=.* started.*", 1) // Readiness check: Wait for Kafka to start
+            ).withStartupTimeout(Duration.ofMinutes(2)));  // Total startup timeout for all strategies
+     */
+
+
+
+
 
     @Test
     void testKafkaOperations() throws ExecutionException, InterruptedException {

@@ -35,6 +35,6 @@ public class NginxHttpWaitStrategyTest {
         int responseCode = connection.getResponseCode();
 
         assertEquals(200, responseCode, "Nginx should respond with HTTP 200");
-        logger.info("✅ Nginx responded with status: {}", responseCode);
+        logger.info("Nginx responded with status: {}", responseCode);
     }
 }
