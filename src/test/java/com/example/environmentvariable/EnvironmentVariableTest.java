@@ -30,7 +30,8 @@ public class EnvironmentVariableTest {
 	@Test
 	void testContainerWithEnvVariable() {
 		// Create an Alpine container with a custom environment variable and command
-		try (GenericContainer<?> container = new GenericContainer<>("alpine:latest").withEnv("MY_ENV_VAR", "HelloWorld")
+		try (GenericContainer<?> container = new GenericContainer<>("alpine:latest")
+				.withEnv("MY_ENV_VAR", "HelloWorld")
 				.withCommand("sh", "-c", "echo $MY_ENV_VAR && sleep 5")) {
 
 			container.start();
