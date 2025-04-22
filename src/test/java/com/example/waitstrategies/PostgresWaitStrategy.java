@@ -30,22 +30,14 @@ public class PostgresWaitStrategy {
     .withUrlParam("sslmode", "disable")
     // Liveness check (port)
     .waitingFor(Wait.forListeningPort()
-        .withStartupTimeout(Duration.ofSeconds(60)))
-    // Readiness check (logs)
-    .waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*", 1)
         .withStartupTimeout(Duration.ofSeconds(60)));
+    // Readiness check (logs)
+   // .waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*", 1)
+        //.withStartupTimeout(Duration.ofSeconds(120))
+        //);
 
 	
-	//@Disabled
-	@Test
-	void testConnection() throws SQLException {
-		logger.info("Running testWithWaitingStrategy...");
-		try (Connection conn = DriverManager.getConnection(postgreSQLContainer.getJdbcUrl(),
-				postgreSQLContainer.getUsername(), postgreSQLContainer.getPassword())) {
-			conn.createStatement().execute("SELECT 1");
-			logger.info("Database connected successfully.");
-		}
-	}
+
 	
 	@Test
     void testPostgresConnection() throws SQLException {
