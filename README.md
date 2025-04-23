@@ -156,10 +156,12 @@ echo <GHCR_PAT> | docker login ghcr.io -u <your-github-username> --password-stdi
 # Push the image to GitHub Container Registry
 docker push ghcr.io/<your-github-username>/approved-images/postgres:15
 
+
 ---
 
-**### 🚫 Step 3: Test Access Without Authentication**
-To simulate an unauthenticated environment:
+### 🔧 Step 2: Tag and Push to GHCR
+
+Replace <your-github-username> with your actual GitHub username.
 
 ```bash
 # Logout from GHCR
