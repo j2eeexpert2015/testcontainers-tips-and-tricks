@@ -126,7 +126,20 @@ I create practical, hands-on courses on **Java, Spring Boot, Debugging, Git, P
 
 These steps show how to prepare and test a custom PostgreSQL image in GitHub Container Registry (GHCR) to be used in Testcontainers.
 
-### 🔧 1. Tag and Push to GHCR
+### 🔐 Step 1: Generate a GitHub Personal Access Token (GHCR_PAT)
+
+1. Go to: https://github.com/settings/tokens?type=beta
+2. Click: Generate new token → Classic
+3. Select scopes:
+   - ✅ read:packages
+   - ✅ write:packages
+4. Copy the generated token and save it somewhere safe
+
+You’ll use this token as the password when logging in to GHCR.
+
+---
+
+### 🔧 Step 2: Tag and Push to GHCR
 
 Replace <your-github-username> with your actual GitHub username.
 
@@ -134,11 +147,11 @@ Replace <your-github-username> with your actual GitHub username.
 # Pull the official Postgres image
 docker pull postgres:15
 
-# Retag for GHCR
-docker tag postgres:15 ghcr.io/<your-github-username>/postgres-demo/postgres:15
+# Retag for GHCR under approved-images
+docker tag postgres:15 ghcr.io/<your-github-username>/approved-images/postgres:15
 
-# Login to GitHub Container Registry
-docker login ghcr.io -u <your-github-username>
+# Login using your GitHub username and GHCR_PAT token
+echo <GHCR_PAT> | docker login ghcr.io -u <your-github-username> --password-stdin
 
-# Push the image to GHCR
-docker push ghcr.io/<your-github-username>/postgres-demo/postgres:15
+# Push the image to GitHub Container Registry
+docker push ghcr.io/<your-github-username>/approved-images/postgres:15
