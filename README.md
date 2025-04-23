@@ -26,7 +26,7 @@ I create practical, hands-on courses on **Java, Spring Boot, Debugging, Git, P
 
 ## 📚 Explore My Udemy Courses
 
-<!-- You can keep your existing course tables here -->
+<!-- Insert course tables here -->
 
 ---
 
@@ -55,25 +55,19 @@ Using your own GitHub username:
 # Pull the official Postgres image
 docker pull postgres:15
 
-# Tag the image for your GHCR repo
+# Tag the image
 docker tag postgres:15 ghcr.io/<your-github-username>/approved-images/postgres:15
-
-# Login using your GHCR_PAT
-echo <GHCR_PAT> | docker login ghcr.io -u <your-github-username> --password-stdin
-
-# Push the image to GHCR
-docker push ghcr.io/<your-github-username>/approved-images/postgres:15
-```
-
-Using example GitHub username j2eeexpert2015:
-
-```bash
-docker pull postgres:15
-
+# Example:
 docker tag postgres:15 ghcr.io/j2eeexpert2015/approved-images/postgres:15
 
+# Login to GHCR
+echo <GHCR_PAT> | docker login ghcr.io -u <your-github-username> --password-stdin
+# Example:
 echo <GHCR_PAT> | docker login ghcr.io -u j2eeexpert2015 --password-stdin
 
+# Push to GHCR
+docker push ghcr.io/<your-github-username>/approved-images/postgres:15
+# Example:
 docker push ghcr.io/j2eeexpert2015/approved-images/postgres:15
 ```
 
@@ -83,23 +77,18 @@ docker push ghcr.io/j2eeexpert2015/approved-images/postgres:15
 
 To simulate an unauthenticated environment:
 
-Using your own GitHub username:
-
 ```bash
+# Logout from GHCR
 docker logout ghcr.io
 
+# Remove local image
 docker rmi ghcr.io/<your-github-username>/approved-images/postgres:15
-
-docker pull ghcr.io/<your-github-username>/approved-images/postgres:15
-```
-
-Using example GitHub username j2eeexpert2015:
-
-```bash
-docker logout ghcr.io
-
+# Example:
 docker rmi ghcr.io/j2eeexpert2015/approved-images/postgres:15
 
+# Attempt pull without auth
+docker pull ghcr.io/<your-github-username>/approved-images/postgres:15
+# Example:
 docker pull ghcr.io/j2eeexpert2015/approved-images/postgres:15
 ```
 
