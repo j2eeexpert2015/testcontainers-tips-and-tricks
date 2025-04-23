@@ -155,3 +155,19 @@ echo <GHCR_PAT> | docker login ghcr.io -u <your-github-username> --password-stdi
 
 # Push the image to GitHub Container Registry
 docker push ghcr.io/<your-github-username>/approved-images/postgres:15
+
+---
+
+**### 🚫 Step 3: Test Access Without Authentication**
+To simulate an unauthenticated environment:
+
+```bash
+# Logout from GHCR
+docker logout ghcr.io
+
+# Remove local copy of the image
+docker rmi ghcr.io/<your-github-username>/approved-images/postgres:15
+
+# Try pulling without authentication
+docker pull ghcr.io/<your-github-username>/approved-images/postgres:15
+
