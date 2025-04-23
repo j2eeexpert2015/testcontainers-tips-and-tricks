@@ -2,19 +2,19 @@
 
 [![Ayan Dutta - Instructor](https://img-c.udemycdn.com/user/200_H/5007784_d6b8.jpg)](https://www.udemy.com/user/ayandutta/)
 
-Hi, I’m **Ayan Dutta**, a Software Architect, Instructor, and Content Creator.  
-I create practical, hands-on courses on **Java, Spring Boot, Debugging, Git, Python**, and more.
+Hi, I’m **Ayan Dutta**, a Software Architect, Instructor, and Content Creator.  
+I create practical, hands-on courses on **Java, Spring Boot, Debugging, Git, Python**, and more.
 
 ---
 
 ## 🌐 Connect With Me
 
-- 💬 **Slack Group:** [Join Here](https://join.slack.com/t/learningfromexp/shared_invite/zt-1fnksxgd0-_jOdmIq2voEeMtoindhWrA)
-- 📢 After joining, go to the `#java-debugging-with-intellij-idea-udemy` channel
-- 📧 **Email:** j2eeexpert2015@gmail.com
-- 🔗 **YouTube:** [LearningFromExperience](https://www.youtube.com/@learningfromexperience)
-- 📝 **Medium Blog:** [@mrayandutta](https://medium.com/@mrayandutta)
-- 💼 **LinkedIn:** [Ayan Dutta](https://www.linkedin.com/in/ayan-dutta-a41091b/)
+- 💬 Slack Group: [Join Here](https://join.slack.com/t/learningfromexp/shared_invite/zt-1fnksxgd0-_jOdmIq2voEeMtoindhWrA)
+- 📢 After joining, go to the #java-debugging-with-intellij-idea-udemy channel
+- 📧 Email: j2eeexpert2015@gmail.com
+- 🔗 YouTube: [LearningFromExperience](https://www.youtube.com/@learningfromexperience)
+- 📝 Medium Blog: [@mrayandutta](https://medium.com/@mrayandutta)
+- 💼 LinkedIn: [Ayan Dutta](https://www.linkedin.com/in/ayan-dutta-a41091b/)
 
 ---
 
@@ -120,3 +120,25 @@ I create practical, hands-on courses on **Java, Spring Boot, Debugging, Git, Pyt
   </tr>
 </table>
 
+---
+
+## 🐳 Preparing a Custom PostgreSQL Image on GHCR
+
+These steps show how to prepare and test a custom PostgreSQL image in GitHub Container Registry (GHCR) to be used in Testcontainers.
+
+### 🔧 1. Tag and Push to GHCR
+
+Replace <your-github-username> with your actual GitHub username.
+
+```bash
+# Pull the official Postgres image
+docker pull postgres:15
+
+# Retag for GHCR
+docker tag postgres:15 ghcr.io/<your-github-username>/postgres-demo/postgres:15
+
+# Login to GitHub Container Registry
+docker login ghcr.io -u <your-github-username>
+
+# Push the image to GHCR
+docker push ghcr.io/<your-github-username>/postgres-demo/postgres:15
