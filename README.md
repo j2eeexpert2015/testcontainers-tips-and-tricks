@@ -94,6 +94,4 @@ docker pull ghcr.io/j2eeexpert2015/approved-images/postgres:15
 
 ✅ This pull should fail if the image is private, confirming access is restricted without credentials.
 
-💡 To make your image private:  
-Go to https://github.com/users/<your-github-username>/packages  
-→ Select your container → Click Settings → Set visibility to Private.
+
