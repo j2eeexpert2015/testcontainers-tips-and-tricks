@@ -159,17 +159,17 @@ docker push ghcr.io/<your-github-username>/approved-images/postgres:15
 
 ---
 
-### 🔧 Step 2: Tag and Push to GHCR
+### 🚫 Step 3: Test Access Without Authentication
 
-Replace <your-github-username> with your actual GitHub username.
+To simulate an unauthenticated environment (e.g., how Testcontainers might initially try to access if not configured):
 
 ```bash
 # Logout from GHCR
 docker logout ghcr.io
 
-# Remove local copy of the image
+# Remove local copy of the image to force a pull attempt
 docker rmi ghcr.io/<your-github-username>/approved-images/postgres:15
 
-# Try pulling without authentication
+# Try pulling without authentication (this is expected to fail for private images)
 docker pull ghcr.io/<your-github-username>/approved-images/postgres:15
 
