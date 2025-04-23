@@ -15,7 +15,7 @@ public class PostgresAutomaticImageSubstitutionTest {
     // Constant for image verification
     private static final String IMAGE_TAG = "15";
     private static final String EXPECTED_PREFIX = "ghcr.io/j2eeexpert2015/approved-images/";
-    private static final String EXPECTED_IMAGE = EXPECTED_PREFIX + "postgres:15" + IMAGE_TAG;
+    private static final String EXPECTED_IMAGE = EXPECTED_PREFIX + "postgres:" + IMAGE_TAG;
 
     @Test
     void validateExplicitSubstitutionWithExcludes() {
