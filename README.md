@@ -158,7 +158,7 @@ docker push ghcr.io/<your-github-username>/approved-images/postgres:15
 
 ---
 
-###  🚫 Step 3: Test Access Without Authentication
+###  Step 3: Test Access Without Authentication
 
 To simulate an unauthenticated environment (e.g., how Testcontainers might initially try to access if not configured):
 
