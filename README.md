@@ -10,7 +10,7 @@ I create practical, hands-on courses on **Java, Spring Boot, Debugging, Git, P
 ## 🌐 Connect With Me
 
 - 💬 Slack Group: [Join Here](https://join.slack.com/t/learningfromexp/shared_invite/zt-1fnksxgd0-_jOdmIq2voEeMtoindhWrA)
-- 📢 After joining, go to the #java-debugging-with-intellij-idea-udemy channel  
+- 📢 After joining, go to the #integration-testing-with-testcontainers-java-spring-boot channel  
 - 📧 Email: j2eeexpert2015@gmail.com  
 - 🔗 YouTube: [LearningFromExperience](https://www.youtube.com/@learningfromexperience)  
 - 📝 Medium Blog: [@mrayandutta](https://medium.com/@mrayandutta)  
